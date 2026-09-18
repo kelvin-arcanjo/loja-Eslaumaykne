@@ -1,7 +1,7 @@
 /* ===================================================================
    Eslaumaykne — folha de estilos
-   Paleta: vinho profundo + creme + dourado + bordô, tipografia serif
-   de destaque (Fraunces) + sans utilitária (Manrope)
+   Paleta: branco + castanho, tipografia serif de destaque (Fraunces)
+   + sans utilitária (Manrope)
 =================================================================== */
 
 :root{
@@ -95,6 +95,7 @@ button{ font-family:inherit; cursor:pointer; }
   list-style: none;
   margin:0; padding:0;
   font-size: 0.86rem;
+  flex-wrap: wrap;
 }
 .nav-categorias a{
   text-decoration:none;
@@ -102,6 +103,7 @@ button{ font-family:inherit; cursor:pointer; }
   padding-bottom: 3px;
   border-bottom: 2px solid transparent;
   transition: border-color .2s ease, color .2s ease;
+  white-space: nowrap;
 }
 .nav-categorias a:hover{
   border-color: var(--dourado);
@@ -339,6 +341,11 @@ button{ font-family:inherit; cursor:pointer; }
   color: var(--tinta);
   resize: none;
 }
+.linha-campos-duplos{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
 .linha-qtd{
   display:flex;
   align-items:center;
@@ -445,7 +452,7 @@ button{ font-family:inherit; cursor:pointer; }
   width: 20px;
   height: auto;
   vertical-align: middle;
-  background-color: green;
+  background-color: bisque;
   border-radius: 50%;
 }
 

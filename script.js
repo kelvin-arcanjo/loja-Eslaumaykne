@@ -18,6 +18,11 @@ const CORES_DISPONIVEIS = [
   "Dourado"
 ];
 
+const TAMANHOS_CALCADO = ["37", "38", "39", "40", "41"];
+
+/* categorias cujo produto precisa de seletor de tamanho (calçado) */
+const CATEGORIAS_COM_TAMANHO = ["sandalias", "chinelos"];
+
 const PRODUTOS = [
   // ---------------- COLETES ----------------
   { id: "col-01", categoria: "coletes", nome: "Colete Xadrez Castanho", preco: 2500, img: "assets/colete_castanho.jpg" },
@@ -53,12 +58,31 @@ const PRODUTOS = [
   { id: "moc-18", categoria: "mocas", nome: "Bolsa Amarela Satchel",        preco: 5000, img: "assets/moca_amarela_satchel.jpg" },
   { id: "moc-19", categoria: "mocas", nome: "Bolsa Rosa Satchel",           preco: 4500, img: "assets/moca_rosa_satchel.jpg" },
 
+  // ---------------- SANDÁLIAS ----------------
+  { id: "san-01", categoria: "sandalias", nome: "Sandália Preta de Tiras",        preco: 6500, img: "assets/sandaliaa.webp" },
+  { id: "san-02", categoria: "sandalias", nome: "Sandália Castanha com Nó",       preco: 6500, img: "assets/sandaliaa1.webp" },
+  { id: "san-03", categoria: "sandalias", nome: "Sandália Bege com Nó",           preco: 6500, img: "assets/sandalias6.webp" },
+
+  // ---------------- CHINELOS ----------------
+  { id: "chi-01", categoria: "chinelos", nome: "Chinelo Castanho de Fivelas",     preco: 5000, img: "assets/chinelos1.webp" },
+  { id: "chi-02", categoria: "chinelos", nome: "Chinelo Branco de Fivelas",       preco: 5000, img: "assets/chinelos2.webp" },
+  { id: "chi-03", categoria: "chinelos", nome: "Chinelo Branco Dourado",          preco: 5000, img: "assets/chinelos3.webp" },
+  { id: "chi-04", categoria: "chinelos", nome: "Chinelo Preto Dourado",           preco: 5000, img: "assets/chinelos4.webp" },
+  { id: "chi-05", categoria: "chinelos", nome: "Chinelo Bege de Fivela",          preco: 5000, img: "assets/chinelos5.webp" },
+
+  // ---------------- CUECAS ----------------
+  { id: "cue-01", categoria: "cuecas", nome: "Cueca de Renda", preco: 1500, img: "assets/cuecas.webp" },
+
   // ---------------- PERFUMES ----------------
   { id: "per-01", categoria: "perfumes", nome: "Perfume Blackberry",     preco: 4000, img: "assets/perfume_blackberry.jpg" },
   { id: "per-02", categoria: "perfumes", nome: "Perfume Yara Lattafa",   preco: 4000, img: "assets/perfume_yara.jpg" },
   { id: "per-03", categoria: "perfumes", nome: "Perfume Paco LeXcess",   preco: 4000, img: "assets/perfume_paco.jpg" },
-  { id: "per-04", categoria: "perfumes", nome: "Perfume Intense Pink",   preco: 4000, img: "assets/perfume_intense_pink.jpg" },
-  { id: "per-05", categoria: "perfumes", nome: "Perfume YSL M7",         preco: 4000, img: "assets/perfume_ysl.jpg" },
+  { id: "per-04", categoria: "perfumes", nome: "Perfume YSL M7",         preco: 4000, img: "assets/perfume_ysl.jpg" },
+  { id: "per-05", categoria: "perfumes", nome: "Perfume Chanel Nº5",     preco: 6500, img: "assets/perfumechanelc.webp" },
+  { id: "per-06", categoria: "perfumes", nome: "Perfume Light Blue D&G", preco: 6500, img: "assets/perfumedolcegabana.webp" },
+
+  // ---------------- ACESSÓRIOS ----------------
+  { id: "ace-01", categoria: "acessorios", nome: "Cantil Térmico Youth Has You", preco: 1500, img: "assets/lancheira.webp" },
 
   // ---------------- CONJUNTOS DE COLARES ----------------
   { id: "col-set-01", categoria: "colares", nome: "Conjunto Trevo Vermelho",         preco: 4000, img: "assets/colar_vermelho.jpg" },
@@ -66,10 +90,14 @@ const PRODUTOS = [
 ];
 
 const CATEGORIAS = [
-  { chave: "coletes",        titulo: "Coletes",               faixa: "2.500 Kz" },
+  { chave: "coletes",        titulo: "Coletes",                faixa: "2.500 Kz" },
   { chave: "universitarias", titulo: "Pastas Universitárias",  faixa: "6.500 Kz" },
   { chave: "mocas",          titulo: "Pastas das Moças",       faixa: "4.500 — 5.000 Kz" },
-  { chave: "perfumes",       titulo: "Perfumes",               faixa: "4.000 Kz" },
+  { chave: "sandalias",      titulo: "Sandálias",              faixa: "6.500 Kz · tam. 37 a 41" },
+  { chave: "chinelos",       titulo: "Chinelos",               faixa: "5000 Kz · tam. 37 a 41" },
+  { chave: "cuecas",         titulo: "Cuecas",                 faixa: "1.500 Kz" },
+  { chave: "perfumes",       titulo: "Perfumes",               faixa: "4.000 — 6.500 Kz" },
+  { chave: "acessorios",     titulo: "Acessórios",             faixa: "1.500 Kz" },
   { chave: "colares",        titulo: "Conjuntos de Colares",   faixa: "4.000 Kz" },
 ];
 
@@ -91,6 +119,7 @@ function guardarCarrinho(){
 const areaSecoes = document.getElementById("areaSecoes");
 const listaChips = document.getElementById("listaChips");
 const navCategorias = document.getElementById("navCategorias");
+const listaRodapeCategorias = document.getElementById("listaRodapeCategorias");
 
 CATEGORIAS.forEach(cat => {
   const li = document.createElement("li");
@@ -100,6 +129,12 @@ CATEGORIAS.forEach(cat => {
   const liNav = document.createElement("li");
   liNav.innerHTML = `<a href="#${cat.chave}">${cat.titulo}</a>`;
   navCategorias.appendChild(liNav);
+
+  if (listaRodapeCategorias){
+    const liRodape = document.createElement("li");
+    liRodape.innerHTML = `<a href="#${cat.chave}">${cat.titulo}</a>`;
+    listaRodapeCategorias.appendChild(liRodape);
+  }
 
   const secao = document.createElement("section");
   secao.className = "secao-produtos";
@@ -123,7 +158,9 @@ CATEGORIAS.forEach(cat => {
 });
 
 function criarCartaoProduto(produto){
+  const precisaTamanho = CATEGORIAS_COM_TAMANHO.includes(produto.categoria);
   const opcoesCor = CORES_DISPONIVEIS.map(c => `<option value="${c}">${c}</option>`).join("");
+  const opcoesTamanho = TAMANHOS_CALCADO.map(t => `<option value="${t}">${t}</option>`).join("");
 
   const artigo = document.createElement("article");
   artigo.className = "cartao-produto";
@@ -134,9 +171,15 @@ function criarCartaoProduto(produto){
     <div class="corpo-cartao">
       <h3>${produto.nome}</h3>
       <span class="preco">${formatarKz(produto.preco)}</span>
-      <label class="campo">Cor
-        <select class="seletor-cor">${opcoesCor}</select>
-      </label>
+      <div class="${precisaTamanho ? "linha-campos-duplos" : ""}">
+        <label class="campo">Cor
+          <select class="seletor-cor">${opcoesCor}</select>
+        </label>
+        ${precisaTamanho ? `
+        <label class="campo">Tamanho
+          <select class="seletor-tamanho">${opcoesTamanho}</select>
+        </label>` : ""}
+      </div>
       <div class="linha-qtd">
         <span class="campo" style="font-size:0.78rem;">Quantidade</span>
         <div class="seletor-qtd">
@@ -163,7 +206,9 @@ function criarCartaoProduto(produto){
   const botaoAdd = artigo.querySelector(".botao-adicionar");
   botaoAdd.addEventListener("click", () => {
     const cor = artigo.querySelector(".seletor-cor").value;
-    adicionarAoCarrinho(produto, qtd, cor);
+    const seletorTamanho = artigo.querySelector(".seletor-tamanho");
+    const tamanho = seletorTamanho ? seletorTamanho.value : null;
+    adicionarAoCarrinho(produto, qtd, cor, tamanho);
     botaoAdd.textContent = "Adicionado ✓";
     botaoAdd.classList.add("ok");
     setTimeout(() => {
@@ -176,8 +221,8 @@ function criarCartaoProduto(produto){
 }
 
 /* ---------------- logica do carrinho ---------------- */
-function adicionarAoCarrinho(produto, quantidade, cor){
-  const existente = carrinho.find(i => i.id === produto.id && i.cor === cor);
+function adicionarAoCarrinho(produto, quantidade, cor, tamanho){
+  const existente = carrinho.find(i => i.id === produto.id && i.cor === cor && i.tamanho === tamanho);
   if (existente){
     existente.quantidade += quantidade;
   } else {
@@ -187,6 +232,7 @@ function adicionarAoCarrinho(produto, quantidade, cor){
       preco: produto.preco,
       img: produto.img,
       cor,
+      tamanho: tamanho || null,
       quantidade
     });
   }
@@ -226,7 +272,7 @@ function renderizarCarrinho(){
         <img src="${item.img}" alt="${item.nome}">
         <div class="info-item">
           <h4>${item.nome}</h4>
-          <p>Cor: ${item.cor} · Qtd: ${item.quantidade}</p>
+          <p>Cor: ${item.cor}${item.tamanho ? ` · Tam: ${item.tamanho}` : ""} · Qtd: ${item.quantidade}</p>
           <p>${formatarKz(item.preco * item.quantidade)}</p>
         </div>
         <button type="button" class="remover-item" data-indice="${indice}">Remover</button>
@@ -282,7 +328,7 @@ document.getElementById("formCheckout").addEventListener("submit", (evento) => {
 
   let mensagem = `Olá Eslaumaykne! Quero fazer este pedido:%0A%0A`;
   carrinho.forEach((item, i) => {
-    mensagem += `${i + 1}. ${item.nome} — Cor: ${item.cor} — Qtd: ${item.quantidade} — ${formatarKz(item.preco * item.quantidade)}%0A`;
+    mensagem += `${i + 1}. ${item.nome} — Cor: ${item.cor}${item.tamanho ? ` — Tam: ${item.tamanho}` : ""} — Qtd: ${item.quantidade} — ${formatarKz(item.preco * item.quantidade)}%0A`;
   });
   mensagem += `%0ATotal: ${formatarKz(totalCarrinho())}%0A%0A`;
   mensagem += `Nome: ${nomeCliente}%0A`;
